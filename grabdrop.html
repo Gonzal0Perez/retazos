@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>mouse-div</title>
+<style type="text/css">
+.grab {position:absolute;font-size:15px;font-weight:bold;color:black;}
+</style>
+<script type="text/javascript">
+
+var q="iii";//which one is grabbed--if none, this is "iii"
+var flag=0;//if one is grabbed--if none, this is 0
+var ii,x,y;
+var labels = new Array('PHP','JavaScript','jQuery','C#','CSS');
+var addtopage='';
+
+function check(ii) {
+if(flag==1){flag=0;q="iii";return;}
+if(q=="iii"&&flag==0){flag=1;q=ii;}}
+
+function startmouse() {document.onmousemove=getCoords;}
+
+function getCoords(e){
+if (!e) var e = window.event;
+if (e.pageX){x = e.pageX;y = e.pageY;} else if
+(e.clientX){x = e.clientX + document.body.scrollLeft;y = e.clientY + document.body.scrollTop;}
+if(flag==1&&q!="iii"){var myDiv=document.getElementById(q);myDiv.style.left=(x-5)+'px';myDiv.style.top=(y-5)+'px';}
+window.status="x="+x+" y="+y+" flag="+flag+" q="+q+" ";}
+
+</script>
+</head>
+<body onload="startmouse()">
+
+<P><center>CLICK DIV TO GRAB DIV. MOVE DIV WITH MOUSE. CLICK TO DROP DIV. DO NOT HOLD DOWN MOUSE BUTTON WHILE MOVING!</center></P>
+
+<div id = "a1" onclick="check('a1')" style="top:190px;left:700px;position:absolute;border:1px groove #000000;
+width:50px;height:20px;background-color:#CCC0CC"></div>
+
+<div id = "a2" onclick="check('a2')" style="top:190px;left:600px;position:absolute;border:1px groove #000000;
+width:50px;height:20px;background-color:#CCCCCC"></div>
+
+<script type="text/javascript">
+for (var i = 0; i < labels.length; i++) {
+var j="i"+i;var xxx=i*50;var yyy=i*50+100;
+addtopage += "<div class='grab' id='"+j+"' onclick='check(\""+j+"\")' style='left:"+xxx+"px;top:"+yyy+"px;'>"+labels[i]+"</div>";}
+document.body.innerHTML += addtopage;
+</script>
+</body>
+</html>
